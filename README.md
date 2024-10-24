@@ -34,3 +34,6 @@ While microservices offer many advantages, they also introduce complexity. Here 
 - **Data Management**: Each microservice should manage its own database, which can lead to data consistency challenges.
 - **Deployment Complexity**: Managing multiple services increases deployment complexity. Tools like Docker and Kubernetes can help mitigate this.
 - **Monitoring and Logging**: Implementing robust monitoring and logging solutions is essential for tracking service health and performance.
+
+## Architecture
+![Leeres Diagramm](https://github.com/user-attachments/assets/dc189524-332d-466d-8327-682fa20d79d9)
