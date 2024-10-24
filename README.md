@@ -26,7 +26,7 @@ In the current state, there is no front end, so to make the application work, th
 
 To also scale the project in the X-axis, the duplication could be done in the docker-compose.yml file. In that case, a load balancer would be needed. 
 
-## Diagram
+### Diagram
 ![Leeres Diagramm](https://github.com/user-attachments/assets/dc189524-332d-466d-8327-682fa20d79d9)
 
 ### Benefits of Microservices
