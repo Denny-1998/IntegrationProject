@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PostService.Data;
 using PostService.Models;
@@ -7,12 +8,12 @@ using PostService.Models;
 [ApiController]
 public class PostController : ControllerBase
 {
-
     private readonly PostDbContext _context;
 
     public PostController(PostDbContext context)
     {
         _context = context;
+
     }
 
 
@@ -33,9 +34,12 @@ public class PostController : ControllerBase
         {
             return BadRequest();
         }
+        post.CreatedDate = DateTime.Now;
 
         _context.Posts.Add(post);
         _context.SaveChanges();
+
+        syncFeed(post.UserID);
 
         return CreatedAtAction(nameof(GetPosts), new { id = post.Id }, post);
     }
@@ -45,6 +49,13 @@ public class PostController : ControllerBase
     {
         var posts = _context.Posts.Where(p => p.UserID == userId).ToList();
         return Ok(posts);
+    }
+
+    public async Task syncFeed(int userId)
+    {
+        //TODO coming soon
+        //this method needs to sync the feed for every person that follows this user. 
+        //probably through a sync endpoint int the userService
     }
 
 }

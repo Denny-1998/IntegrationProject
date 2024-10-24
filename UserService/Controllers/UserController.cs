@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using UserService.Data;
 using UserService.Models;
+using Newtonsoft.Json;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -114,6 +116,7 @@ public class UserController : ControllerBase
             followUser.Followers.Add(userId);
             await _context.SaveChangesAsync();
         }
+        await syncFeed(userId);
 
         return Ok("User followed successfully");
     }
@@ -137,6 +140,23 @@ public class UserController : ControllerBase
         }
 
         return Ok("User unfollowed successfully");
+    }
+
+
+    public async Task syncFeed(int userId)
+    {
+        var content = new StringContent(JsonConvert.SerializeObject(new { userId }), Encoding.UTF8, "application/json");
+
+        var client = _httpClientFactory.CreateClient();
+
+        //fire and forget approach
+        try
+        {
+            var response = await client.PostAsync($"http://feedservice:8080/api/feed/sync", content);
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
     }
 
 
