@@ -19,8 +19,7 @@ The system is built using a microservices architecture, which includes the follo
 - **Post Service**: Handles the creation and retrieval of posts.
 - **Feed Service**: Aggregates posts from users that a given user follows, providing a personalized feed.
 
-The services are communicating with each other mostly using the "fire and forget" pattern. They send a request to the other service but do not depend on it's outcome. 
-To make this even more independent, a messaging service like RabbitMQ could have been used. 
+The services are communicating with each other mostly using the "fire and forget" pattern. They send a request to the other service but do not depend on it's outcome. This approach was chosen to keep the project simple. In a mission critical application, a messaging service like RabbitMQ could have been used to make the microservices more independent from each other. 
 
 In the current state, there is no front end, so to make the application work, the front end had to send requests to different services depending on the user's action. 
 
