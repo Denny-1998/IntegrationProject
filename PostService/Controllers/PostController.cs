@@ -39,4 +39,12 @@ public class PostController : ControllerBase
 
         return CreatedAtAction(nameof(GetPosts), new { id = post.Id }, post);
     }
+
+    [HttpGet("user/{userId}")]
+    public IActionResult GetPostsByUser(int userId)
+    {
+        var posts = _context.Posts.Where(p => p.UserID == userId).ToList();
+        return Ok(posts);
+    }
+
 }
