@@ -11,7 +11,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedService", "FeedService\FeedService.csproj", "{974487D0-6F72-4445-A213-3A45629EC38D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostServiceTest", "..\PostServiceTest\PostServiceTest.csproj", "{F5F92286-9A36-42AD-9AF7-082CC0626B13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostServiceTest", "PostServiceTest\PostServiceTest.csproj", "{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{974487D0-6F72-4445-A213-3A45629EC38D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{974487D0-6F72-4445-A213-3A45629EC38D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{974487D0-6F72-4445-A213-3A45629EC38D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5F92286-9A36-42AD-9AF7-082CC0626B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5F92286-9A36-42AD-9AF7-082CC0626B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5F92286-9A36-42AD-9AF7-082CC0626B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5F92286-9A36-42AD-9AF7-082CC0626B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
