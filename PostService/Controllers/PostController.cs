@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PostService.BusinessLogic;
 using PostService.Data;
 using PostService.Models;
 
@@ -8,54 +9,45 @@ using PostService.Models;
 [ApiController]
 public class PostController : ControllerBase
 {
-    private readonly PostDbContext _context;
+    private readonly IPostHandler _postHandler;
 
-    public PostController(PostDbContext context)
+    public PostController(IPostHandler postHandler)
     {
-        _context = context;
+        _postHandler = postHandler;
 
     }
 
 
     [HttpGet]
-    public IActionResult GetPosts()
+    public async Task<IActionResult> GetPosts()
     {
         // Retrieve posts from the database
-        List<Post> posts = _context.Posts.ToList();
+        List<Post> posts = await _postHandler.GetAllPosts();
         return Ok(posts);
     }
 
 
 
     [HttpPost]
-    public IActionResult CreatePost([FromBody] Post post)
+    public async Task<IActionResult> CreatePost([FromBody] Post post)
     {
         if (post == null)
         {
             return BadRequest();
         }
-        post.CreatedDate = DateTime.Now;
 
-        _context.Posts.Add(post);
-        _context.SaveChanges();
+        Post newPost = await _postHandler.CreatePost(post);
 
-        syncFeed(post.UserID);
-
-        return CreatedAtAction(nameof(GetPosts), new { id = post.Id }, post);
+        return CreatedAtAction(nameof(GetPosts), new { id = post.Id }, newPost);
     }
 
     [HttpGet("user/{userId}")]
-    public IActionResult GetPostsByUser(int userId)
+    public async Task<IActionResult> GetPostsByUser(int userId)
     {
-        var posts = _context.Posts.Where(p => p.UserID == userId).ToList();
+        List<Post> posts = await _postHandler.GetPostByUser(userId);
         return Ok(posts);
     }
 
-    public async Task syncFeed(int userId)
-    {
-        //TODO coming soon
-        //this method needs to sync the feed for every person that follows this user. 
-        //probably through a sync endpoint int the userService
-    }
+   
 
 }

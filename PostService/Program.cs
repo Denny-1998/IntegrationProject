@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PostService.BusinessLogic;
 using PostService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<PostDbContext>(options =>
     options.UseInMemoryDatabase("PostDb"));
+
+builder.Services.AddScoped<IPostHandler, PostHandler>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
