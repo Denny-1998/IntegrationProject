@@ -191,10 +191,57 @@ Successfully deployed:
 - Implement proper health checks
 - Implement proper load balancing
 
+
 # Week 47 - Security
 
 ## Overview
-- 
+Analysis of security requirements for the system.
+
+## Current State
+- Basic microservices communication via HTTP
+- No authentication implemented
+- No user login functionality
+- Direct API access without security measures
+
+## Key Security Areas to Implement
+
+### 1. Authentication and Authorization
+Current state: No authentication
+Needed improvements:
+- User registration and login system in UserService
+- JWT token implementation for API authentication
+- Secure post creation and user following functionality
+
+### 2. Inter-Service Communication
+Current state: Basic HTTP calls
+Needed improvements:
+- Secure service-to-service communication using HTTPS
+- Implement API gateway security
+  - Add rate limiting for incoming requests
+
+### 3. Data Protection
+Current state: No data protection
+Needed improvements:
+- Password hashing for user credentials
+- HTTPS implementation
+- encrypt user data stored in the database
+
+## Service-Specific Security Needs
+
+### UserService
+- Secure user registration/authentication
+- Password hashing
+- Session management
+
+### PostService
+- Verify user authentication for post creation
+- Validate post content
+- Implement post ownership verification
+
+### FeedService
+- Secure feed generation
+- Verify user access rights
+
 
 # Week 48 - Design Patterns
 
