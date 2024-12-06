@@ -1,5 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Polly.Retry;
 using PostService.Data;
 using PostService.Models;
 
@@ -8,21 +10,47 @@ namespace PostService.BusinessLogic
     public class PostHandler : IPostHandler
     {
         private readonly PostDbContext _context;
-        public PostHandler(PostDbContext context)
+        private readonly ILogger<PostHandler> _logger;
+        private readonly AsyncRetryPolicy _retryPolicy;
+        public PostHandler(PostDbContext context, ILogger<PostHandler> logger)
         {
             _context = context;
+            _logger = logger;
+            _retryPolicy = DatabaseRetryPolicy.CreateRetryPolicy();
         }
 
         public async Task<Post> GetPostByID(int id)
         {
-            Post post = await _context.Posts.FirstOrDefaultAsync(x => x.Id == id);
-            return post;
+
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                try
+                {
+                    Post post = await _context.Posts.FirstOrDefaultAsync(x => x.Id == id);
+                    return post;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating post");
+                    throw;
+                }
+            });
         }
 
         public async Task<List<Post>> GetAllPosts ()
         {
-            List<Post> posts = await _context.Posts.ToListAsync();
-            return posts;
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                try
+                {
+                    return await _context.Posts.ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error retrieving all posts");
+                    throw;
+                }
+            });
         }
 
         public async Task<List<Post>> GetPostByUser(int userId)
@@ -33,14 +61,21 @@ namespace PostService.BusinessLogic
 
         public async Task<Post> CreatePost(Post post)
         {
-            post.CreatedDate = DateTime.Now;
-
-            _context.Posts.Add(post);
-            _context.SaveChanges();
-
-            syncFeed(post.UserID);
-
-            return post;
+            return await _retryPolicy.ExecuteAsync(async () =>
+            {
+                try
+                {
+                    post.CreatedDate = DateTime.Now;
+                    _context.Posts.Add(post);
+                    await _context.SaveChangesAsync();
+                    return post;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating post");
+                    throw;
+                }
+            });
         }
 
         private async Task syncFeed(int userId)

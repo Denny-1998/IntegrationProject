@@ -45,3 +45,88 @@ While microservices offer many advantages, they also introduce complexity. Here 
 - **Monitoring and Logging**: Implementing robust monitoring and logging solutions is essential for tracking service health and performance.
 
 
+# Assignment 2
+
+
+# Week 44 - API Gateway
+
+## Overview
+Implemented an Ocelot API Gateway to centralize and manage requests between microservices in the Twitter-like application.
+
+## Components Implemented
+
+### 1. Ocelot Gateway Service
+- Created a new microservice for API Gateway using Ocelot
+- Configured routing for all microservices through a single entry point
+- Handles request forwarding to appropriate services
+
+### 2. Service Routes
+Implemented routes for multiple services:
+
+#### Post Service Routes
+- GET `/gateway/post` → `/api/post`
+- POST `/gateway/post` → `/api/post`
+- GET `/gateway/post/user/{id}` → `/api/post/user/{id}`
+
+#### Feed Service Routes
+- GET `/gateway/feed/{id}` → `/api/feed/{id}`
+
+#### User Service Routes
+- GET `/gateway/users` → `/api/user/all`
+- GET `/gateway/user/{id}` → `/api/user/{id}`
+- POST `/gateway/user` → `/api/user`
+- POST `/gateway/user/{userId}/follow/{followUserId}` → `/api/user/{userId}/follow/{followUserId}`
+- POST `/gateway/user/{userId}/unfollow/{unfollowUserId}` → `/api/user/{userId}/unfollow/{unfollowUserId}`
+- GET `/gateway/user/posts` → `/api/user/posts`
+- GET `/gateway/user/UserPosts` → `/api/user/UserPosts`
+
+### 3. Configuration
+- Set up HTTP routing
+- Configured downstream services with proper hosts and ports
+- Implemented consistent route patterns with `/gateway` prefix
+
+## Benefits
+- Single entry point for all API requests
+- Simplified client-side integration
+- Centralized request handling
+- Better service isolation
+- Consistent routing patterns
+
+
+# Week 45 - Reliability Improvements
+
+## Overview
+Implemented several reliability measures in the PostService to make it more resilient to failures and provide better operational visibility.
+
+## Key Improvements
+
+### 1. Structured Logging (Serilog)
+- Implemented comprehensive logging throughout the service
+- Provides better visibility into service operations
+- Helps with debugging and monitoring service health
+- Logs are formatted in a structured way for better analysis
+
+### 2. Global Exception Handling
+- Implemented centralized error handling middleware
+- Catches all unhandled exceptions in the service
+- Returns user-friendly JSON error responses
+- Prevents sensitive error details from leaking to clients
+- Ensures consistent error response format
+
+### 3. Database Resilience (Polly)
+- Implemented retry policies for database operations
+- Uses exponential backoff strategy:
+  - First retry: 2 seconds wait
+  - Second retry: 4 seconds wait
+  - Third retry: 8 seconds wait
+- Automatically recovers from temporary database failures
+- Logs retry attempts for monitoring and debugging
+
+## Benefits
+These improvements make the service more reliable by:
+- Automatically recovering from temporary failures
+- Providing better error handling and reporting
+- Giving better insights into operational issues
+- Protecting against database connectivity problems
+- Ensuring consistent error responses for better client integration
+

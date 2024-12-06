@@ -9,6 +9,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+RUN dotnet dev-certs https --trust
 COPY ["PostService/PostService.csproj", "PostService/"]
 RUN dotnet restore "./PostService/PostService.csproj"
 COPY . .

@@ -4,8 +4,8 @@ services:
   userservice:
     image: ${DOCKER_REGISTRY-}userservice
     build:
-      context: ./UserService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: UserService/Dockerfile
     ports:
       - "5000:8080"
       - "5001:8081"
@@ -15,8 +15,8 @@ services:
   postservice:
     image: ${DOCKER_REGISTRY-}postservice
     build:
-      context: ./PostService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: PostService/Dockerfile
     ports:
       - "5010:8080" 
       - "5011:8081"
@@ -26,13 +26,24 @@ services:
   feedService:
     image: ${DOCKER_REGISTRY-}feedservice
     build:
-      context: ./FeedService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: FeedService/Dockerfile
     ports:
       - "5020:8080"
       - "5021:8081"
     networks:
     - app-network
+
+  ocelotGateway:
+    image: ${DOCKER_REGISTRY-}ocelotgateway
+    build:
+      context: .
+      dockerfile: OcelotGateway/Dockerfile
+    ports:
+      - "5554:8080"
+      - "5555:8081"
+    networks:
+      - app-network
 
 networks:
   app-network:

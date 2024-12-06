@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedService", "FeedService\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostServiceTest", "PostServiceTest\PostServiceTest.csproj", "{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotGateway", "OcelotGateway\OcelotGateway.csproj", "{5A547F24-4133-4EBC-A33A-ADCE32479F44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E62B64A1-590E-4E6C-ACFB-6530D68C7EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A547F24-4133-4EBC-A33A-ADCE32479F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A547F24-4133-4EBC-A33A-ADCE32479F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A547F24-4133-4EBC-A33A-ADCE32479F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A547F24-4133-4EBC-A33A-ADCE32479F44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

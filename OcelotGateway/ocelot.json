@@ -1,0 +1,139 @@
+{
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:8080"
+    },
+    "Routes": [
+        {
+            "UpstreamPathTemplate": "/gateway/post",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/post",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "postservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/post",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/post",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "postservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/post/user/{id}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/post/user/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "postservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/feed/{id}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/feed/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "feedservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/users",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamPathTemplate": "/api/user/all",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/user/{id}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamPathTemplate": "/api/user/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/user",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamPathTemplate": "/api/user",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/user/{userId}/follow/{followUserId}",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamPathTemplate": "/api/user/{userId}/follow/{followUserId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/user/{userId}/unfollow/{unfollowUserId}",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamPathTemplate": "/api/user/{userId}/unfollow/{unfollowUserId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/user/posts",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamPathTemplate": "/api/user/posts",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/gateway/user/UserPosts",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamPathTemplate": "/api/user/UserPosts",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "userservice",
+                    "Port": 8080
+                }
+            ]
+        }
+    ]
+}

@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using PostService.BusinessLogic;
+using Serilog;
 using PostService.Data;
+using PostService.Logging;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 
@@ -17,6 +22,15 @@ builder.Services.AddScoped<IPostHandler, PostHandler>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<GlobalExceptionHandler>();
+
+builder.Services.AddHttpClient("FeedService")
+    .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder
+        .CircuitBreakerAsync(
+            handledEventsAllowedBeforeBreaking: 3,
+            durationOfBreak: TimeSpan.FromSeconds(30)
+        ));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,8 +40,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseAuthorization();
 
 app.MapControllers();
