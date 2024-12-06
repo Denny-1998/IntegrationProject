@@ -245,8 +245,31 @@ Needed improvements:
 
 # Week 48 - Design Patterns
 
-## Overview
+## Implemented Patterns
 
-# New Architecture
+### 1. API Gateway Pattern
+- Implemented using Ocelot Gateway
+- Provides a single entry point for all client requests
+- Handles routing to appropriate microservices
+- Current configuration uses static routing
+- Possible improvement: Dynamic routing through Kubernetes
+
+### 2. Database per Service Pattern
+- Each service has its own independent database
+- Currently using in-memory databases for demonstration
+- Ensures loose coupling between services
+- Possible improvement: Replace with proper databases (SQL/MongoDB)
+
+### 3. Asynchronous Messaging Pattern
+- Implemented "fire and forget" communication
+- Services communicate via HTTP but don't wait for responses
+- Example: PostService notifies FeedService of new posts asynchronously
+- Improves system resilience and responsiveness
+
+### 4. Sidecar Pattern
+- Implemented an example on how the sidecar pattern would work
+
+  
+## New Architecture Diagram
 
 ![Leeres Diagramm (1)](https://github.com/user-attachments/assets/18d71642-f2b5-4600-abff-a4bac072c1e9)
