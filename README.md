@@ -130,3 +130,146 @@ These improvements make the service more reliable by:
 - Protecting against database connectivity problems
 - Ensuring consistent error responses for better client integration
 
+
+# Week 46 - Kubernetes
+
+## Overview
+I implemented a basic Kubernetes deployment for the microservices architecture. The implementation focused on deploying the services to a local Kubernetes cluster using Minikube.
+
+## Components Implemented
+- Local Kubernetes cluster using Minikube
+- Kubernetes deployments and services for FeedService, UserService and PostService
+- Conversion of Docker Compose configurations to Kubernetes manifests
+
+## Implementation Steps
+
+### 1. Local Kubernetes Setup
+- Installed required tools:
+  - Minikube for local Kubernetes cluster
+  - kubectl for Kubernetes CLI interaction
+  - kompose for converting Docker Compose to Kubernetes manifests
+
+### 2. Service Migration to Kubernetes
+- Used kompose to convert Docker Compose configurations to Kubernetes manifests
+- Generated deployment and service configurations for each microservice
+- Modified generated manifests to work with local images
+
+### 3. Service Deployment
+Successfully deployed:
+- FeedService 
+- UserService 
+
+## Challenges and Solutions
+
+### 1. Image Pulling Issues
+- **Challenge**: Kubernetes couldn't find local Docker images
+- **Solution**: Added `imagePullPolicy: Never` to force usage of local images
+- **Implementation**: Modified deployment manifests to use local image registry
+
+### 2. HTTPS Configuration
+- **Challenge**: PostService failing due to HTTPS certificate requirements
+- **Solution**: No solution yet
+
+### 3. Container Naming
+- **Challenge**: Invalid container name formats in generated manifests
+- **Solution**: Separated container name from image specification
+- **Implementation**: Updated deployment manifests with correct naming conventions
+
+## Benefits Achieved
+- Service orchestration through Kubernetes
+- Improved scalability potential
+- Better service management
+- Foundation for future cloud deployment
+
+## Current State
+- Successfully running multiple services in Kubernetes
+- Groundwork laid for adding more services to the cluster
+
+## Future Improvements
+- Implement proper HTTPS with certificate management
+- Add resource limits and requests
+- Implement proper health checks
+- Implement proper load balancing
+
+
+# Week 47 - Security
+
+## Overview
+Analysis of security requirements for the system.
+
+## Current State
+- Basic microservices communication via HTTP
+- No authentication implemented
+- No user login functionality
+- Direct API access without security measures
+
+## Key Security Areas to Implement
+
+### 1. Authentication and Authorization
+Current state: No authentication
+Needed improvements:
+- User registration and login system in UserService
+- JWT token implementation for API authentication
+- Secure post creation and user following functionality
+
+### 2. Inter-Service Communication
+Current state: Basic HTTP calls
+Needed improvements:
+- Secure service-to-service communication using HTTPS
+- Implement API gateway security
+  - Add rate limiting for incoming requests
+
+### 3. Data Protection
+Current state: No data protection
+Needed improvements:
+- Password hashing for user credentials
+- HTTPS implementation
+- encrypt user data stored in the database
+
+## Service-Specific Security Needs
+
+### UserService
+- Secure user registration/authentication
+- Password hashing
+- Session management
+
+### PostService
+- Verify user authentication for post creation
+- Validate post content
+- Implement post ownership verification
+
+### FeedService
+- Secure feed generation
+- Verify user access rights
+
+
+# Week 48 - Design Patterns
+
+## Implemented Patterns
+
+### 1. API Gateway Pattern
+- Implemented using Ocelot Gateway
+- Provides a single entry point for all client requests
+- Handles routing to appropriate microservices
+- Current configuration uses static routing
+- Possible improvement: Dynamic routing through Kubernetes
+
+### 2. Database per Service Pattern
+- Each service has its own independent database
+- Currently using in-memory databases for demonstration
+- Ensures loose coupling between services
+- Possible improvement: Replace with proper databases (SQL/MongoDB)
+
+### 3. Asynchronous Messaging Pattern
+- Implemented "fire and forget" communication
+- Services communicate via HTTP but don't wait for responses
+- Example: PostService notifies FeedService of new posts asynchronously
+- Improves system resilience and responsiveness
+
+### 4. Sidecar Pattern
+- Implemented an example on how the sidecar pattern would work
+
+  
+## New Architecture Diagram
+
+![Leeres Diagramm (1)](https://github.com/user-attachments/assets/18d71642-f2b5-4600-abff-a4bac072c1e9)
