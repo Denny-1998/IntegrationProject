@@ -21,4 +21,10 @@ spec:
           ports:
             - containerPort: 8080
             - containerPort: 8081
+        - name: userservice
+          image: userservice:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+            - containerport: 8081
       restartPolicy: Always
